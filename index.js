@@ -1,15 +1,55 @@
+const vm = require('vm');
+const fs = require('fs')
+
 function executeFn() {
   try {
     const {
       script,
       params
     } = JSON.parse(decodeBase64(process.argv[2]))
-    const result = decodeBase64(script)
-    const executeFn = new Function(...params.map(item => item.key), result)
-    const executeResult = executeFn(...params.map(item => item.mockValue))
-    return executeResult
+    // const scriptText = decodeBase64(script)
+
+    // TODO: 调试脚本
+    const scriptText = fs.readFileSync('./testScript.js', 'utf-8')
+
+    // 储存打印日志
+    let logs = []
+
+    const scriptApp = new vm.Script(`(function () { ${scriptText} })()`);
+
+    // 参数
+    const paramsData = params.reduce((obj, item) => {
+      const {
+        key,
+        value,
+        mockValue
+      } = item
+      obj[key] = mockValue
+      return obj
+    }, {})
+
+    // 沙箱配置
+    const sandbox = {
+      ...paramsData,
+      console: {
+        log(...args) {
+          logs = logs.concat(args)
+        }
+      }
+    };
+
+    const context = new vm.createContext(sandbox);
+    const result = scriptApp.runInContext(context);
+
+    return {
+      logs,
+      result
+    }
   } catch (err) {
-    return err
+    return {
+      logs: err,
+      result: null
+    }
   }
 }
 
