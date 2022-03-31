@@ -1,7 +1,17 @@
-const vm = require('vm');
 const fs = require('fs')
+const {
+  Safeify
+} = require('safeify')
 
-function executeFn() {
+const safeVm = new Safeify({
+  timeout: 500, //超时时间，默认 50ms
+  asyncTimeout: 500, //包含异步操作的超时时间，默认 500ms
+  quantity: 4, //沙箱进程数量，默认同 CPU 核数
+  memoryQuota: 500, //沙箱最大能使用的内存（单位 m），默认 500m
+  cpuQuota: 0.5, //沙箱的 cpu 资源配额（百分比），默认 50%
+});
+
+async function executeFn() {
   try {
     const {
       script,
@@ -14,8 +24,6 @@ function executeFn() {
 
     // 储存打印日志
     let logs = []
-
-    const scriptApp = new vm.Script(`(function () { ${scriptText} })()`);
 
     // 参数
     const paramsData = params.reduce((obj, item) => {
@@ -37,9 +45,14 @@ function executeFn() {
         }
       }
     };
-
-    const context = new vm.createContext(sandbox);
-    const result = scriptApp.runInContext(context);
+    const result = await safeVm.run(scriptText, sandbox);
+    /*
+    const vm = require('vm');
+        const scriptApp = new vm.Script(`(function () { ${scriptText} })()`);
+        const context = new vm.createContext(sandbox);
+        const result = scriptApp.runInContext(context, {
+          timeout: 500
+        }); */
 
     return {
       logs,
@@ -48,12 +61,15 @@ function executeFn() {
   } catch (err) {
     return {
       logs: err,
-      result: null
+      result: undefined
     }
   }
-}
+};
 
-console.log(executeFn())
+(async function () {
+  console.log(await executeFn())
+  process.exit()
+})()
 
 function encodeBase64(str) {
   return Buffer.from(str).toString('base64');
