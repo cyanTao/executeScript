@@ -1,0 +1,19 @@
+{
+  "name": "executescript",
+  "version": "1.0.0",
+  "description": "run js in node server by sanbox",
+  "main": "index.js",
+  "scripts": {
+    "start": "node index.js eyJzY3JpcHRUeXBlIjoiSkFWQVNDUklQVCIsInNjcmlwdCI6ImNtVjBkWEp1SUdGeWNpNWpiMjVqWVhRb1d6RXNJRElzSUROZEtTNXRZWEFvYVhSbGJTQTlQaUFvZXcwS0lDQWdJQzR1TG1sMFpXMHNEUW9nSUNBZ2JtRnRaU3dOQ2lBZ0lDQXVMaTV2WW1vTkNuMHBLUT09IiwicGFyYW1zIjpbeyJrZXkiOiJuYW1lIiwidmFsdWUiOm51bGwsIm1vY2tWYWx1ZSI6IjIyIiwidHlwZSI6bnVsbCwibW9ja1R5cGUiOm51bGx9LHsia2V5IjoiYXJyIiwidmFsdWUiOm51bGwsIm1vY2tWYWx1ZSI6W10sInR5cGUiOm51bGwsIm1vY2tUeXBlIjpudWxsfSx7ImtleSI6Im9iaiIsInZhbHVlIjpudWxsLCJtb2NrVmFsdWUiOnsibmFtZSI6ImphY2siLCJhZ2UiOjEyfSwidHlwZSI6bnVsbCwibW9ja1R5cGUiOm51bGx9XX0="
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/cyanTao/executeScript.git"
+  },
+  "author": "",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/cyanTao/executeScript/issues"
+  },
+  "homepage": "https://github.com/cyanTao/executeScript#readme"
+}
