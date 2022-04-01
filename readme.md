@@ -1,7 +1,7 @@
 # 用 safeify 对传入 js 做沙箱处理
 
 ## 参考链接
-https://zhuanlan.zhihu.com/p/35992886
+https://github.com/Houfeng/safeify/blob/master/DOC.md
 
 ## 开发
 
