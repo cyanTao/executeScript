@@ -46,13 +46,6 @@ async function executeFn() {
       }
     };
     const result = await safeVm.run(scriptText, sandbox);
-    /*
-    const vm = require('vm');
-        const scriptApp = new vm.Script(`(function () { ${scriptText} })()`);
-        const context = new vm.createContext(sandbox);
-        const result = scriptApp.runInContext(context, {
-          timeout: 500
-        }); */
 
     return {
       logs,
