@@ -35,11 +35,12 @@ function executeFn() {
         log(...args) {
           logs = logs.concat(args)
         }
-      }
+      },
+      Promise: () => {}
     };
 
     const context = new vm.createContext(sandbox);
-    const result = scriptApp.runInContext(context);
+    const result = scriptApp.runInContext(context, { timeout: 50 });
 
     return {
       logs,
